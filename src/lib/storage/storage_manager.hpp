@@ -15,6 +15,8 @@ namespace opossum {
 // by mapping table names to table instances.
 class StorageManager : private Noncopyable {
  public:
+  static StorageManager& get();
+
   // adds a table to the storage manager
   void add_table(const std::string& name, std::shared_ptr<Table> table);
 
@@ -37,9 +39,11 @@ class StorageManager : private Noncopyable {
   // deletes the entire StorageManager and creates a new one, used especially in tests
   static void reset();
 
+  StorageManager(StorageManager const&) = delete;
   StorageManager(StorageManager&&) = delete;
 
  protected:
-  // Implementation goes here
+  StorageManager() {}
+  std::map<std::string, std::shared_ptr<Table>> m_table_map;
 };
 }  // namespace opossum
