@@ -10,10 +10,6 @@
 
 namespace opossum {
 
-StorageManager& StorageManager::get() {
-  throw std::runtime_error("Implement StorageManager::get");
-}
-
 void StorageManager::add_table(const std::string& name, std::shared_ptr<Table> table) {
   this->m_table_map.emplace(name, std::move(table));
 }
@@ -55,12 +51,14 @@ std::vector<std::string> StorageManager::table_names() const {
 }
 
 void StorageManager::print(std::ostream& out) const {
-  // Implementation goes here
+  for(auto& kv : this->m_table_map) {
+    auto& table = *(kv.second);
+    out << kv.first << ": " << table.col_count() << "columns, " << table.row_count() << "rows, " << table.chunk_count() << "chunks" << std::endl;
+  }
 }
 
 void StorageManager::reset() {
-  // StorageManager::instance = StorageManager{};
-  // Implementation goes here
+  get() = StorageManager();
 }
 
 }  // namespace opossum
