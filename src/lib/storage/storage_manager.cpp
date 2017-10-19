@@ -51,14 +51,13 @@ std::vector<std::string> StorageManager::table_names() const {
 }
 
 void StorageManager::print(std::ostream& out) const {
-  for(auto& kv : this->m_table_map) {
+  for (auto& kv : this->m_table_map) {
     auto& table = *(kv.second);
-    out << kv.first << ": " << table.col_count() << "columns, " << table.row_count() << "rows, " << table.chunk_count() << "chunks" << std::endl;
+    out << kv.first << ": " << table.col_count() << "columns, " << table.row_count() << "rows, " << table.chunk_count()
+        << "chunks" << std::endl;
   }
 }
 
-void StorageManager::reset() {
-  get() = StorageManager();
-}
+void StorageManager::reset() { get() = StorageManager(); }
 
 }  // namespace opossum
