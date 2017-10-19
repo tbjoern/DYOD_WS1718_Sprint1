@@ -39,11 +39,11 @@ class StorageManager : private Noncopyable {
   // deletes the entire StorageManager and creates a new one, used especially in tests
   static void reset();
 
-  StorageManager(StorageManager const&) = delete;
   StorageManager(StorageManager&&) = delete;
 
  protected:
   StorageManager() {}
   std::map<std::string, std::shared_ptr<Table>> m_table_map;
+  StorageManager& operator=(StorageManager&&) = default;
 };
 }  // namespace opossum
