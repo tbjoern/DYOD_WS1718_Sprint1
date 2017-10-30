@@ -36,7 +36,7 @@ void Table::add_column(const std::string& name, const std::string& type) {
 }
 
 void Table::append(std::vector<AllTypeVariant> values) {
-  if (this->m_chunks.back()->size() >= this->m_chunk_size) {
+  if (this->m_chunk_size > 0 && this->m_chunks.back()->size() >= this->m_chunk_size) {
     this->create_new_chunk();
   }
   this->m_chunks.back()->append(values);
